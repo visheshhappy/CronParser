@@ -28,4 +28,6 @@ public class CronConfig {
     public static final ValueRange MONTH_RANGE = ValueRange.of(1, 12);
     public static final ValueRange DAY_OF_MONTH_RANGE = ValueRange.of(1, 31);
     public static final ValueRange DAY_OF_WEEK_RANGE = ValueRange.of(1, 7);
+
+    public static final int TOTAL_TITLE_SPACE = 14;
 }

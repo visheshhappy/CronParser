@@ -3,7 +3,6 @@ package org.vishesh.cronjob.config;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import org.checkerframework.checker.units.qual.C;
 import org.vishesh.cronjob.factory.DescribeStrategyFactory;
 import org.vishesh.cronjob.service.CronJobService;
 import org.vishesh.cronjob.service.CronParser;
@@ -14,9 +13,17 @@ import org.vishesh.cronjob.service.impl.CronParserImpl;
 import org.vishesh.cronjob.service.impl.CronValidationServiceImpl;
 import org.vishesh.cronjob.service.impl.CronViewServiceImpl;
 import org.vishesh.cronjob.strategy.CronDescribeStrategy;
-import org.vishesh.cronjob.strategy.impl.*;
+import org.vishesh.cronjob.strategy.impl.DescribeDayOfMonthStrategy;
+import org.vishesh.cronjob.strategy.impl.DescribeDayOfWeekStrategy;
+import org.vishesh.cronjob.strategy.impl.DescribeHourStrategy;
+import org.vishesh.cronjob.strategy.impl.DescribeMinuteStrategy;
+import org.vishesh.cronjob.strategy.impl.DescribeMonthStrategy;
 import org.vishesh.cronjob.validator.CronExpressionValidator;
-import org.vishesh.cronjob.validator.impl.*;
+import org.vishesh.cronjob.validator.impl.DayOfMonthExpressionValidator;
+import org.vishesh.cronjob.validator.impl.DayOfWeekExpressionValidator;
+import org.vishesh.cronjob.validator.impl.HourExpressionValidator;
+import org.vishesh.cronjob.validator.impl.MinuteExpressionValidator;
+import org.vishesh.cronjob.validator.impl.MonthExpressionValidator;
 
 import javax.inject.Named;
 import java.util.Arrays;
@@ -43,7 +50,7 @@ public class CronJobConfiguration extends AbstractModule {
                 new MinuteExpressionValidator(CronConfig.MINUTE_RANGE, CronConfig.MINUTE_POSITION),
                 new HourExpressionValidator(CronConfig.HOUR_RANGE, CronConfig.HOUR_POSITION),
                 new MonthExpressionValidator(CronConfig.MONTH_RANGE, CronConfig.MONTH_POSITION),
-                new DayExpressionValidator(CronConfig.DAY_OF_MONTH_RANGE, CronConfig.DAY_OF_MONTH_POSITION),
+                new DayOfMonthExpressionValidator(CronConfig.DAY_OF_MONTH_RANGE, CronConfig.DAY_OF_MONTH_POSITION, CronConfig.DAY_OF_MONTH_POSITION),
                 new DayOfWeekExpressionValidator(CronConfig.DAY_OF_WEEK_RANGE, CronConfig.DAY_OF_WEEK_POSITION));
         return new CronValidationServiceImpl(cronExpressionValidatorList);
     }
@@ -51,7 +58,7 @@ public class CronJobConfiguration extends AbstractModule {
     @Provides
     @Singleton
     public CronViewService cronViewService(final DescribeStrategyFactory describeStrategyFactory) {
-        return new CronViewServiceImpl(describeStrategyFactory);
+        return new CronViewServiceImpl(describeStrategyFactory, CronConfig.TOTAL_TITLE_SPACE);
     }
 
     @Provides

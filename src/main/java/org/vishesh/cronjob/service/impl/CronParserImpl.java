@@ -1,8 +1,6 @@
 package org.vishesh.cronjob.service.impl;
 
-import org.checkerframework.checker.units.qual.C;
 import org.vishesh.cronjob.config.CronConfig;
-import org.vishesh.cronjob.dto.CronExpressionDto;
 import org.vishesh.cronjob.exception.ErrorCode;
 import org.vishesh.cronjob.exception.InvalidExpressionException;
 import org.vishesh.cronjob.model.CronExpression;
@@ -31,23 +29,23 @@ public class CronParserImpl implements CronParser {
         Map<CronFieldName, CronFieldValue> cronMap = new LinkedHashMap();
         String minuteExpression = parsedCron[CronConfig.MINUTE_POSITION];
         CronFieldValue.ExpressionType type = getType(minuteExpression);
-        cronMap.put(CronFieldName.MINUTE, new CronFieldValue(CronFieldName.MINUTE, minuteExpression, type));
+        cronMap.put(CronFieldName.MINUTE, new CronFieldValue(CronFieldName.MINUTE, minuteExpression, type, CronConfig.MINUTE_RANGE));
 
         String hourExpression = parsedCron[CronConfig.HOUR_POSITION];
         CronFieldValue.ExpressionType hourType = getType(hourExpression);
-        cronMap.put(CronFieldName.HOUR, new CronFieldValue(CronFieldName.HOUR, hourExpression, hourType));
+        cronMap.put(CronFieldName.HOUR, new CronFieldValue(CronFieldName.HOUR, hourExpression, hourType, CronConfig.HOUR_RANGE));
 
         String dayOfMonth = parsedCron[CronConfig.DAY_OF_MONTH_POSITION];
         CronFieldValue.ExpressionType dayOfMonthExp = getType(dayOfMonth);
-        cronMap.put(CronFieldName.DAY_OF_MONTH, new CronFieldValue(CronFieldName.DAY_OF_MONTH, dayOfMonth, dayOfMonthExp));
+        cronMap.put(CronFieldName.DAY_OF_MONTH, new CronFieldValue(CronFieldName.DAY_OF_MONTH, dayOfMonth, dayOfMonthExp, CronConfig.DAY_OF_MONTH_RANGE));
 
         String monthExpression = parsedCron[CronConfig.MONTH_POSITION];
-        CronFieldValue.ExpressionType monthtypeExp = getType(monthExpression);
-        cronMap.put(CronFieldName.MONTH, new CronFieldValue(CronFieldName.MONTH, monthExpression, monthtypeExp));
+        CronFieldValue.ExpressionType monthTypeExp = getType(monthExpression);
+        cronMap.put(CronFieldName.MONTH, new CronFieldValue(CronFieldName.MONTH, monthExpression, monthTypeExp, CronConfig.MONTH_RANGE));
 
         String dayOfWeekExpression = parsedCron[CronConfig.DAY_OF_WEEK_POSITION];
         CronFieldValue.ExpressionType dayOfWeekExp = getType(dayOfWeekExpression);
-        cronMap.put(CronFieldName.DAY_OF_WEEK, new CronFieldValue(CronFieldName.DAY_OF_WEEK, dayOfWeekExpression, dayOfWeekExp));
+        cronMap.put(CronFieldName.DAY_OF_WEEK, new CronFieldValue(CronFieldName.DAY_OF_WEEK, dayOfWeekExpression, dayOfWeekExp, CronConfig.DAY_OF_WEEK_RANGE));
 
         CronExpression cronExpression = new CronExpression(cron, cronMap);
 
@@ -66,7 +64,7 @@ public class CronParserImpl implements CronParser {
             return CronFieldValue.ExpressionType.INTERVAL;
         }
 
-        throw new InvalidExpressionException("expression is invalid", ErrorCode.INVALID_CRON_LENGTH); // todo check for error code.
+        throw new InvalidExpressionException("expression is invalid", ErrorCode.INVALID_EXPRESSION_CHARACTER);
 
     }
 

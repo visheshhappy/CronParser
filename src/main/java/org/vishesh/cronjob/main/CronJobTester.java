@@ -11,8 +11,8 @@ import org.vishesh.cronjob.service.CronJobService;
 public class CronJobTester {
     public static void main(String[] args) {
 
-        //CommandDto dto = getCommandDto(args);
-        CommandDto dto = new CommandDto("*/15 0 1,15 * 1-5", "/usr/bin/find");
+        CommandDto dto = getCommandDto(args);
+        //CommandDto dto = new CommandDto("*/15 0 1,30 2 1-5", "/usr/bin/find");
 
         Injector injector = Guice.createInjector(new CronJobConfiguration());
         CronJobService cronJobService = injector.getInstance(CronJobService.class);

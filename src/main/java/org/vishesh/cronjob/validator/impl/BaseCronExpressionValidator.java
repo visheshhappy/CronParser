@@ -85,7 +85,7 @@ public abstract class BaseCronExpressionValidator implements CronExpressionValid
             return true;
         }
 
-        if(!commonValidationService.isNumeric(expression)){
+        if (!commonValidationService.isNumeric(expression)) {
             return false;
         }
 

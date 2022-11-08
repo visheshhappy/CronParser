@@ -2,8 +2,6 @@ package org.vishesh.cronjob.factory;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.vishesh.cronjob.model.CronFieldName;
 import org.vishesh.cronjob.strategy.CronDescribeStrategy;
 import org.vishesh.cronjob.strategy.impl.DescribeDayOfMonthStrategy;
@@ -12,7 +10,6 @@ import org.vishesh.cronjob.strategy.impl.DescribeHourStrategy;
 import org.vishesh.cronjob.strategy.impl.DescribeMinuteStrategy;
 import org.vishesh.cronjob.strategy.impl.DescribeMonthStrategy;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DescribeStrategyFactoryTest {
 
     private CronDescribeStrategy minuteStrategy = new DescribeMinuteStrategy();

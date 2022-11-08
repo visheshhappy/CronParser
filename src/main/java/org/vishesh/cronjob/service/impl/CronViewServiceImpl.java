@@ -8,25 +8,33 @@ import org.vishesh.cronjob.model.CronFieldName;
 import org.vishesh.cronjob.model.CronFieldValue;
 import org.vishesh.cronjob.service.CronViewService;
 
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
 public class CronViewServiceImpl implements CronViewService {
 
-    private final int titleSpaces = 14; // get from config.
-
     private final DescribeStrategyFactory describeStrategyFactory;
+    private final int titleSpaces;
 
     @Override
     public CronViewDto createView(CronExpression cronExpression, String command) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<CronFieldName, CronFieldValue> entry : cronExpression.getCronFieldMap().entrySet()) {
             CronFieldValue value = entry.getValue();
-            String description = describeStrategyFactory.getCronDescribeStrategy(value.getCronFieldName()).describe(value);
-            builder.append(getTitle(entry.getKey())).append(description).append("\n");
+            List<Integer> possibleValues = describeStrategyFactory.getCronDescribeStrategy(value.getCronFieldName()).describe(value);
+            builder.append(getTitle(entry.getKey())).append(getStringRepresentation(possibleValues)).append("\n");
         }
         builder.append(getCommandTitle()).append(command);
         return new CronViewDto(builder.toString());
+    }
+
+    private String getStringRepresentation(List<Integer> possibleValues) {
+        StringBuilder builder = new StringBuilder();
+        for(Integer i: possibleValues){
+            builder.append(i).append(" ");
+        }
+        return builder.toString().trim();
     }
 
     private String getCommandTitle() {

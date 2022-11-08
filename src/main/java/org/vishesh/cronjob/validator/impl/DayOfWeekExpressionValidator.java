@@ -3,7 +3,6 @@ package org.vishesh.cronjob.validator.impl;
 import org.vishesh.cronjob.dto.CronExpressionDto;
 import org.vishesh.cronjob.exception.ErrorCode;
 import org.vishesh.cronjob.exception.InvalidExpressionException;
-import org.vishesh.cronjob.model.CronFieldName;
 
 import java.time.temporal.ValueRange;
 

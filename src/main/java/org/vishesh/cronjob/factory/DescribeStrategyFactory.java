@@ -3,7 +3,6 @@ package org.vishesh.cronjob.factory;
 import lombok.AllArgsConstructor;
 import org.vishesh.cronjob.model.CronFieldName;
 import org.vishesh.cronjob.strategy.CronDescribeStrategy;
-import org.vishesh.cronjob.strategy.impl.*;
 
 @AllArgsConstructor
 public class DescribeStrategyFactory {
@@ -27,7 +26,7 @@ public class DescribeStrategyFactory {
             case DAY_OF_WEEK:
                 return dayOfWeekStrategy;
             default:
-                throw new RuntimeException("Invalid cron value"); // todo;
+                throw new RuntimeException("Invalid cron value");
         }
     }
 

@@ -1,19 +1,27 @@
 package org.vishesh.cronjob.validator.impl;
 
+import org.vishesh.cronjob.config.CronConfig;
 import org.vishesh.cronjob.dto.CronExpressionDto;
 import org.vishesh.cronjob.exception.ErrorCode;
 import org.vishesh.cronjob.exception.InvalidExpressionException;
-import org.vishesh.cronjob.model.CronFieldName;
+import org.vishesh.cronjob.model.CronFieldValue;
 
 import java.time.temporal.ValueRange;
+import java.util.List;
 
-public class DayExpressionValidator extends BaseCronExpressionValidator {
+import static org.vishesh.cronjob.model.CronFieldValue.ExpressionType.INTERVAL;
+import static org.vishesh.cronjob.model.CronFieldValue.ExpressionType.RANGE;
+import static org.vishesh.cronjob.model.CronFieldValue.ExpressionType.SPECIFIC;
+
+public class DayOfMonthExpressionValidator extends BaseCronExpressionValidator {
 
     private final int position;
+    private final int monthPosition;
 
-    public DayExpressionValidator(ValueRange valueRange, int position) {
+    public DayOfMonthExpressionValidator(ValueRange valueRange, int position, int monthPosition) {
         super(valueRange);
         this.position = position;
+        this.monthPosition = monthPosition;
     }
 
     @Override
@@ -22,7 +30,6 @@ public class DayExpressionValidator extends BaseCronExpressionValidator {
         if (!validateExpression(dayExpression)) {
             throw new InvalidExpressionException("Day of month expression is invalid", ErrorCode.INVALID_DAY_EXPRESSION);
         }
+
     }
-
-
 }

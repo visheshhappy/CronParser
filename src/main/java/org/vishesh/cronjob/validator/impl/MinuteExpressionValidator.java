@@ -9,6 +9,7 @@ import java.time.temporal.ValueRange;
 public class MinuteExpressionValidator extends BaseCronExpressionValidator {
 
     private final int position;
+
     public MinuteExpressionValidator(ValueRange range, int position) {
         super(range);
         this.position = position;

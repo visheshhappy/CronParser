@@ -28,11 +28,8 @@ public class CronValidationServiceImpl implements CronValidationService {
     }
 
     private void validateCronExpression(CronExpressionDto cronExpressionDto) {
-
-        // then send individual expression to the expression validator.
         for (CronExpressionValidator validator : cronExpressionValidatorList) {
             validator.validate(cronExpressionDto);
         }
-
     }
 }
